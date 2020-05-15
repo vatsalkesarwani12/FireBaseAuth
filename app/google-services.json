@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "607255266531",
+    "firebase_url": "https://test-assignment-fca06.firebaseio.com",
+    "project_id": "test-assignment-fca06",
+    "storage_bucket": "test-assignment-fca06.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:607255266531:android:3b61ee2fb51b3d12bbf1d6",
+        "android_client_info": {
+          "package_name": "com.vatsal.kesarwani.testassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "607255266531-b6jfbqpjsi7r2pc7r47a22sfegbil9ug.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAglcFFT4emURQKc_r-4vOzaZSZUfH_-Qw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "607255266531-b6jfbqpjsi7r2pc7r47a22sfegbil9ug.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
