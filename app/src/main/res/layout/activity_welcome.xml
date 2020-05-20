@@ -5,7 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Welcome">
+    tools:context=".Welcome"
+    android:background="@android:color/white">
 
     <TextView
         android:id="@+id/tv01"
@@ -35,7 +36,7 @@
         android:layout_height="186dp"
         android:layout_marginStart="87dp"
         android:layout_marginTop="12dp"
-        android:src="@drawable/welcome"
+        android:background="@drawable/wel"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv02" />
 
@@ -54,9 +55,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv03">
+        app:layout_constraintTop_toBottomOf="@+id/tv03"
+        android:gravity="center"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp">
 
-        <ImageButton
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:elevation="4dp"/>
+
+        <!--<ImageButton
             android:id="@+id/google"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -64,7 +76,15 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:elevation="4dp"
-            android:src="@drawable/google" />
+            android:src="@drawable/google" />-->
+
+        <!--<com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:elevation="4dp"/>-->
 
         <ImageButton
             android:id="@+id/facebook"

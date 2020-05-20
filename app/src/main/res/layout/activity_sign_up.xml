@@ -47,7 +47,16 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv03">
 
-        <ImageButton
+        <com.google.android.gms.common.SignInButton
+            android:id="@+id/google01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:elevation="4dp"
+            android:layout_marginStart="10dp"/>
+
+        <!--<ImageButton
             android:id="@+id/google01"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,7 +64,7 @@
             android:layout_weight="1"
             android:background="@android:color/white"
             android:elevation="4dp"
-            android:src="@drawable/google" />
+            android:src="@drawable/google" />-->
 
         <ImageButton
             android:id="@+id/facebook01"

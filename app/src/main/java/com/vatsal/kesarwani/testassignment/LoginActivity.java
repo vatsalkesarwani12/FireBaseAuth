@@ -1,29 +1,48 @@
 package com.vatsal.kesarwani.testassignment;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.GoogleAuthProvider;
 
 public class LoginActivity extends AppCompatActivity {
 
+    private static final int RC_SIGNIN =12 ;
     private FirebaseAuth mAuth;
-    private ImageButton google2,facebook2;
+    private ImageButton facebook2;
+    private SignInButton google2;
     private TextInputEditText email,password;
     private String semail,spassword;
     private RadioButton remember;
     private TextView forgot;
     private Button loginButton;
     private TextView signUp;
+    private GoogleSignInClient mGoogleSignInClient;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,10 +50,17 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         initializeView();
 
+        GoogleSignInOptions gso=new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.default_web_client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
+
         google2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                signIn();
             }
         });
 
@@ -48,7 +74,7 @@ public class LoginActivity extends AppCompatActivity {
         remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                loginButton.setClickable(true);
+                loginButton.setEnabled(true);
                 semail=email.getText().toString();
                 spassword=password.getText().toString();
 
@@ -65,7 +91,7 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),OtpVerificationActivity.class));
+                Auth();
             }
         });
 
@@ -75,6 +101,74 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
             }
         });
+    }
+
+    private void Auth() {
+        mAuth.signInWithEmailAndPassword(semail,spassword)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            Log.d("Login", "signInWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+                        }
+                        else {
+                            Log.w("Login", "signInWithEmail:failure", task.getException());
+                        }
+                    }
+                });
+    }
+
+    private void signIn() {
+        Intent signInIntent =mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent,RC_SIGNIN);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        FirebaseUser user=mAuth.getCurrentUser();
+        if (user!=null){
+            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode==RC_SIGNIN){
+            Task<GoogleSignInAccount> task=GoogleSignIn.getSignedInAccountFromIntent(data);
+
+            try {
+                GoogleSignInAccount account=task.getResult(ApiException.class);
+                Log.d("Welcome03", "firebaseAuthWithGoogle:" + account.getId());
+                firebaseAuthWithGoogle(account.getIdToken());
+            } catch (ApiException e) {
+                //e.printStackTrace();
+                Log.w("Welcome01", "Google sign in failed", e);
+            }
+
+        }
+    }
+
+    private void firebaseAuthWithGoogle(String idToken) {
+        AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()){
+                            //Sign in successful
+                            Log.d("Welcome03", "signInWithCredential:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            startActivity(new Intent(getApplicationContext() ,HomeActivity.class));
+                        }
+                        else {
+                            Log.w("Welcome01", "signInWithCredential:failure", task.getException());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -92,7 +186,7 @@ public class LoginActivity extends AppCompatActivity {
         remember=findViewById(R.id.rememberRadio);
         forgot=findViewById(R.id.forgot);
         loginButton=findViewById(R.id.loginButton);
-        loginButton.setClickable(false);
+        loginButton.setEnabled(false);
         signUp=findViewById(R.id.signUp02);
     }
 }
