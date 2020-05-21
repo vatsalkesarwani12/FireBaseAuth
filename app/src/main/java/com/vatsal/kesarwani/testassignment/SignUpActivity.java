@@ -41,7 +41,7 @@ public class SignUpActivity extends AppCompatActivity {
     private RadioButton agree;
     private Button signup01;
     private TextView login01;
-    private String semail,spassword;
+    private String semail=null,spassword=null;
     private GoogleSignInClient mGoogleSignInClient;
 
     @Override
@@ -76,7 +76,18 @@ public class SignUpActivity extends AppCompatActivity {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 semail=email.getText().toString();
                 spassword=password.getText().toString();
-                Toast.makeText(SignUpActivity.this, "agree", Toast.LENGTH_SHORT).show();
+                if (semail !=null && spassword!=null){
+                    signup01.setEnabled(true);
+                }
+                else{
+                    if (semail==null){
+                        email.setError("");
+                    }
+                    if (spassword==null){
+                        password.setError("");
+                    }
+                }
+                //Toast.makeText(SignUpActivity.this, "agree", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -179,6 +190,7 @@ public class SignUpActivity extends AppCompatActivity {
         password=findViewById(R.id.password01);
         agree=findViewById(R.id.agreeRadio);
         signup01=findViewById(R.id.signUp01);
+        signup01.setEnabled(false);
         login01=findViewById(R.id.login01);
     }
 }

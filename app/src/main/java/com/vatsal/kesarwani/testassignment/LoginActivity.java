@@ -37,7 +37,7 @@ public class LoginActivity extends AppCompatActivity {
     private ImageButton facebook2;
     private SignInButton google2;
     private TextInputEditText email,password;
-    private String semail,spassword;
+    private String semail=null,spassword=null;
     private RadioButton remember;
     private TextView forgot;
     private Button loginButton;
@@ -74,17 +74,40 @@ public class LoginActivity extends AppCompatActivity {
         remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                loginButton.setEnabled(true);
                 semail=email.getText().toString();
                 spassword=password.getText().toString();
-
+                if (semail!=null && spassword!=null){
+                    loginButton.setEnabled(true);
+                }
+                else {
+                    if (semail==null){
+                        email.setError("");
+                    }
+                    if (spassword==null){
+                        password.setError("");
+                    }
+                }
             }
         });
 
         forgot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                semail=email.getText().toString();
+                if (semail==null){
+                    Toast.makeText(LoginActivity.this, "Email Field Empty", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    mAuth.sendPasswordResetEmail(semail)
+                            .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()){
+                                        Log.w("Reset","Mail sent");
+                                    }
+                                }
+                            });
+                }
             }
         });
 
