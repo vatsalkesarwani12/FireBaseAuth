@@ -51,8 +51,9 @@ import com.facebook.FacebookSdk;
 import com.facebook.appevents.AppEventsLogger;
 import com.google.firebase.auth.OAuthProvider;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-
+import java.util.List;
 
 public class Welcome<accessTokenTracker> extends AppCompatActivity {
 
@@ -61,11 +62,11 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
     //private ImageButton facebook;
     private SignInButton google;
     private LoginButton facebook;
-    private Button signUp,github;
+    private Button signUp, github;
     private TextView login;
     private GoogleSignInClient mGoogleSignInClient;
     private CallbackManager callbackManager;
-    private String EMAIL="email";
+    private String EMAIL = "email";
     private AccessTokenTracker accessTokenTracker;
     //private LoginManager.getInstance().logInWithReadPermissions(this,Arrays.asList("public_profile"));
 
@@ -79,6 +80,16 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
         //AppEventsLogger.activateApp(this);
 
         final OAuthProvider.Builder provider = OAuthProvider.newBuilder("github.com");
+
+        // Request read access to a user's email addresses.
+        // This must be preconfigured in the app's API permissions.
+        List<String> scopes =
+                new ArrayList<String>() {
+                    {
+                        add("user:email");
+                    }
+                };
+        provider.setScopes(scopes);
 
 
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -95,14 +106,14 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
         login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),LoginActivity.class));
+                startActivity(new Intent(getApplicationContext(), LoginActivity.class));
             }
         });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),SignUpActivity.class));
+                startActivity(new Intent(getApplicationContext(), SignUpActivity.class));
             }
         });
 
@@ -118,32 +129,31 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
         facebook.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
             @Override
             public void onSuccess(LoginResult loginResult) {
-                Log.w("Facebook",""+loginResult);
+                Log.w("Facebook", "" + loginResult);
                 handlerFacebookToken(loginResult.getAccessToken());
             }
 
             @Override
             public void onCancel() {
                 // App code
-                Log.w("Facebook","cancel");
+                Log.w("Facebook", "cancel");
             }
 
             @Override
             public void onError(FacebookException exception) {
                 // App code
-                Log.w("Facebook",""+exception);
+                Log.w("Facebook", "" + exception);
             }
         });
 
-        accessTokenTracker=new AccessTokenTracker() {
+        accessTokenTracker = new AccessTokenTracker() {
             @Override
             protected void onCurrentAccessTokenChanged(AccessToken oldAccessToken, AccessToken currentAccessToken) {
-                if (currentAccessToken == null){
+                if (currentAccessToken == null) {
                     mAuth.signOut();
                 }
             }
         };
-
 
 
         github.setOnClickListener(new View.OnClickListener() {
@@ -151,7 +161,7 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
             public void onClick(View v) {
 
 
-                Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
+                /*Task<AuthResult> pendingResultTask = mAuth.getPendingAuthResult();
                 if (pendingResultTask != null) {
                     // There's something already here! Finish the sign-in for your user.
                     pendingResultTask
@@ -165,6 +175,7 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
                                             // The OAuth access token can also be retrieved:
                                             // authResult.getCredential().getAccessToken().
                                             Toast.makeText(Welcome.this, "Success", Toast.LENGTH_SHORT).show();
+                                            Log.d("git success","success");
                                         }
                                     })
                             .addOnFailureListener(
@@ -173,41 +184,43 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
                                         public void onFailure(@NonNull Exception e) {
                                             // Handle failure.
                                             Toast.makeText(Welcome.this, "Failed", Toast.LENGTH_SHORT).show();
+                                            Log.d("git failure","failure");
                                         }
                                     });
                 } else {
                     // There's no pending result so you need to start the sign-in flow.
-                    // See below.
+                    // See below.*/
 
-                    mAuth
-                            .startActivityForSignInWithProvider(/* activity= */ Welcome.this, provider.build())
-                            .addOnSuccessListener(
-                                    new OnSuccessListener<AuthResult>() {
-                                        @Override
-                                        public void onSuccess(AuthResult authResult) {
-                                            // User is signed in.
-                                            // IdP data available in
-                                            // authResult.getAdditionalUserInfo().getProfile().
-                                            // The OAuth access token can also be retrieved:
-                                            // authResult.getCredential().getAccessToken().
+                mAuth.startActivityForSignInWithProvider(/* activity= */ Welcome.this, provider.build())
+                        .addOnSuccessListener(
+                                new OnSuccessListener<AuthResult>() {
+                                    @Override
+                                    public void onSuccess(AuthResult authResult) {
+                                        // User is signed in.
+                                        // IdP data available in
+                                        // authResult.getAdditionalUserInfo().getProfile().
+                                        // The OAuth access token can also be retrieved:
+                                        // authResult.getCredential().getAccessToken().
+                                        Log.d("git token",authResult.getAdditionalUserInfo().getProfile().toString());
+                                        Log.d("git cred",authResult.getCredential().toString());
 
-                                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                                            Toast.makeText(Welcome.this, "Github Sign in successful", Toast.LENGTH_SHORT).show();
-                                        }
-                                    })
-                            .addOnFailureListener(
-                                    new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            // Handle failure.
-                                            Toast.makeText(Welcome.this, "Github Sign in failed", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
-
-
-                }
+                                        startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                                        Toast.makeText(Welcome.this, "Github Sign in successful", Toast.LENGTH_SHORT).show();
+                                        Log.d("git login","success");
+                                    }
+                                })
+                        .addOnFailureListener(
+                                new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        // Handle failure.
+                                        Toast.makeText(Welcome.this, "Github Sign in failed", Toast.LENGTH_SHORT).show();
+                                        Log.d("git login","failed"+ e.getMessage());
+                                    }
+                                });
 
             }
+            //}
         });
     }
 
@@ -216,23 +229,21 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
     boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
 
 
-
     private void handlerFacebookToken(AccessToken loginResult) {
 
-        Log.d("Facebok",""+loginResult);
+        Log.d("Facebok", "" + loginResult);
 
-        AuthCredential credential= FacebookAuthProvider.getCredential(loginResult.getToken());
+        AuthCredential credential = FacebookAuthProvider.getCredential(loginResult.getToken());
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()){
+                        if (task.isSuccessful()) {
                             //Login Successful
-                            Log.w("facebook","Log in successful");
-                            startActivity(new Intent(getApplicationContext(),HomeActivity.class));
-                        }
-                        else {
-                            Log.w("Facebook","login in failed "+task.getException());
+                            Log.w("facebook", "Log in successful");
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+                        } else {
+                            Log.w("Facebook", "login in failed " + task.getException());
                         }
                     }
                 });
@@ -271,8 +282,8 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            startActivity(new Intent(getApplicationContext() ,HomeActivity.class));
+        if (currentUser != null) {
+            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
         }
     }
 
@@ -286,7 +297,7 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d("Welcome01", "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            startActivity(new Intent(getApplicationContext() ,HomeActivity.class));
+                            startActivity(new Intent(getApplicationContext(), HomeActivity.class));
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Welcome01", "signInWithCredential:failure", task.getException());
@@ -307,13 +318,13 @@ public class Welcome<accessTokenTracker> extends AppCompatActivity {
     }
 
     private void initializeView() {
-        mAuth=FirebaseAuth.getInstance();
-        google=findViewById(R.id.google);
-        facebook=findViewById(R.id.facebook);
-        facebook.setReadPermissions("email","public_profile");
-        signUp=findViewById(R.id.signUp);
-        login=findViewById(R.id.login);
+        mAuth = FirebaseAuth.getInstance();
+        google = findViewById(R.id.google);
+        facebook = findViewById(R.id.facebook);
+        facebook.setReadPermissions("email", "public_profile");
+        signUp = findViewById(R.id.signUp);
+        login = findViewById(R.id.login);
         callbackManager = CallbackManager.Factory.create();
-        github=findViewById(R.id.github);
+        github = findViewById(R.id.github);
     }
 }
