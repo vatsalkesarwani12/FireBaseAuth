@@ -34,8 +34,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private static final int RC_SIGNIN =12 ;
     private FirebaseAuth mAuth;
-    private ImageButton facebook2;
-    private SignInButton google2;
+    //private ImageButton facebook2;
+    //private SignInButton google2;
     private TextInputEditText email,password;
     private String semail=null,spassword=null;
     private RadioButton remember;
@@ -57,7 +57,7 @@ public class LoginActivity extends AppCompatActivity {
 
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
 
-        google2.setOnClickListener(new View.OnClickListener() {
+        /*google2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View v) {
 
             }
-        });
+        });*/
 
         remember.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -138,15 +138,16 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             Log.w("Login", "signInWithEmail:failure", task.getException());
+                            Toast.makeText(LoginActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
     }
 
-    private void signIn() {
+    /*private void signIn() {
         Intent signInIntent =mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent,RC_SIGNIN);
-    }
+    }*/
 
     @Override
     protected void onStart() {
@@ -157,7 +158,7 @@ public class LoginActivity extends AppCompatActivity {
         }
     }
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==RC_SIGNIN){
@@ -192,7 +193,7 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
     @Override
     public void onBackPressed() {
@@ -202,8 +203,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private void initializeView() {
         mAuth=FirebaseAuth.getInstance();
-        google2=findViewById(R.id.google02);
-        facebook2=findViewById(R.id.facebook02);
+        //google2=findViewById(R.id.google02);
+        //facebook2=findViewById(R.id.facebook02);
         email=findViewById(R.id.email02);
         password=findViewById(R.id.password02);
         remember=findViewById(R.id.rememberRadio);

@@ -35,8 +35,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private static final int RC_SIGN = 11;
     private FirebaseAuth mAuth;
-    private ImageButton facebook01;
-    private SignInButton google01;
+    //private ImageButton facebook01;
+    //private SignInButton google01;
     private TextInputEditText email, password;
     private RadioButton agree;
     private Button signup01;
@@ -57,7 +57,7 @@ public class SignUpActivity extends AppCompatActivity {
 
         mGoogleSignInClient= GoogleSignIn.getClient(this,gso);
 
-        google01.setOnClickListener(new View.OnClickListener() {
+        /*google01.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 signIn();
@@ -69,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View v) {
 
             }
-        });
+        });*/
         
         agree.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -108,12 +108,12 @@ public class SignUpActivity extends AppCompatActivity {
 
     }
 
-    private void signIn() {
+    /*private void signIn() {
         Intent signInIntent=mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent,RC_SIGN);
-    }
+    }*/
 
-    @Override
+    /*@Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode ==RC_SIGN){
@@ -127,9 +127,9 @@ public class SignUpActivity extends AppCompatActivity {
                 Log.w("Welcome02", "Google sign in failed", e);
             }
         }
-    }
+    }*/
 
-    private void firebaseAuthWithGoogle(String idToken) {
+    /*private void firebaseAuthWithGoogle(String idToken) {
         AuthCredential credential= GoogleAuthProvider.getCredential(idToken,null);
         mAuth.signInWithCredential(credential)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -147,7 +147,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }
+    }*/
 
     private void auth() {
         mAuth.createUserWithEmailAndPassword(semail,spassword)
@@ -161,7 +161,7 @@ public class SignUpActivity extends AppCompatActivity {
                         }
                         else {
                             Log.w("Email02","creatUserWithEmailFailure",task.getException());
-
+                            Toast.makeText(SignUpActivity.this, ""+task.getException(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -184,8 +184,8 @@ public class SignUpActivity extends AppCompatActivity {
 
     private void initaizeView() {
         mAuth=FirebaseAuth.getInstance();
-        google01=findViewById(R.id.google01);
-        facebook01=findViewById(R.id.facebook01);
+        //google01=findViewById(R.id.google01);
+        //facebook01=findViewById(R.id.facebook01);
         email=findViewById(R.id.email01);
         password=findViewById(R.id.password01);
         agree=findViewById(R.id.agreeRadio);

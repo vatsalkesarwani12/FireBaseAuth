@@ -8,6 +8,7 @@
     tools:context=".LoginActivity">
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv01"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,6 +31,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv01" />
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/tv03"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -40,6 +42,7 @@
         app:layout_constraintTop_toBottomOf="@+id/tv02" />
 
     <LinearLayout
+        android:visibility="gone"
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,12 +82,13 @@
     </LinearLayout>
 
     <TextView
+        android:visibility="gone"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="140dp"
         android:layout_marginTop="36dp"
-        android:text="or sign up with email"
+        android:text="or sign in with email"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
 

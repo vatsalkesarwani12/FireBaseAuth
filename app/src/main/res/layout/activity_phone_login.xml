@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".PhoneLogin"
+    android:orientation="vertical">
+
+
+    <TextView
+        android:id="@+id/tv02"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="81dp"
+        android:layout_marginTop="20dp"
+        android:text="Please log in to continue using Helloji"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv01" />
+
+
+    <EditText
+        android:id="@+id/phoneNo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Phone Number"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+
+    <EditText
+        android:id="@+id/otp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="OTP"
+        android:visibility="gone"
+        android:inputType="phone"
+        android:singleLine="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"/>
+
+    <Button
+        android:id="@+id/sendotp"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#1A89E1"
+        android:text="Send OTP"
+        android:visibility="visible"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal"/>
+
+    <Button
+        android:id="@+id/verifyotp"
+        android:visibility="gone"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:background="#1A89E1"
+        android:text="Verify"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center_horizontal"/>
+
+</LinearLayout>

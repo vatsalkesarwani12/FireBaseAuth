@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="120dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/logofirebase" />
+
+        <LinearLayout
+            android:layout_width="409dp"
+            android:layout_height="595dp"
+            android:layout_marginStart="1dp"
+            android:layout_marginTop="1dp"
+            android:layout_marginEnd="1dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+            <Button
+                android:id="@+id/signUp"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Email"
+                android:textColor="@android:color/white"/>
+
+
+            <Button
+                android:id="@+id/phone"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Phone"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/google"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Google"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/play"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="PlayGames"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/twitter"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Twitter"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/github"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Github"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/yahoo"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Yahoo"
+                android:textColor="@android:color/white" />
+
+            <Button
+                android:id="@+id/anonymous"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:text="Anonymous"
+                android:textColor="@android:color/white" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebook"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@android:color/holo_green_dark"
+                android:textColor="@android:color/white" />
+
+
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</ScrollView>

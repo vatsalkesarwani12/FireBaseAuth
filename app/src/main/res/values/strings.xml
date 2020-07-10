@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Test Assignment</string>
+    <string name="app_name">FireBase Auth</string>
     <string name="facebook_app_id">266198748080626</string>
     <string name="fb_login_protocol_scheme">fb266198748080626</string>
 

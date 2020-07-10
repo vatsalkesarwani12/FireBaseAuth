@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.vatsal.kesarwani.testassignment">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -10,17 +11,29 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <meta-data android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id"/>
-        <activity android:name=".HomeActivity"></activity>
-        <activity android:name=".OtpVerificationActivity" />
+        <activity android:name=".PhoneLogin"
+            android:label="Phone"
+            android:parentActivityName=".Welcome"/>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <activity
+            android:name=".HomeActivity"
+            android:label="Home Screen" />
         <activity
             android:name=".SignUpActivity"
-            android:theme="@style/MaterialTheme"
-            android:parentActivityName=".Welcome"/>
-        <activity android:name=".LoginActivity"
-            android:theme="@style/MaterialTheme"
-            android:parentActivityName=".Welcome"/>
+            android:label="Sign Up"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/MaterialTheme" />
+
+        <activity
+            android:name=".LoginActivity"
+            android:label="Login"
+            android:parentActivityName=".Welcome"
+            android:theme="@style/MaterialTheme" />
+
         <activity android:name=".Welcome">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
