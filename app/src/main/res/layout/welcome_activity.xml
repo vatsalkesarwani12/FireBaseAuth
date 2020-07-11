@@ -58,15 +58,6 @@
                 android:textColor="@android:color/white" />
 
             <Button
-                android:id="@+id/play"
-                android:layout_width="200dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/holo_green_dark"
-                android:text="PlayGames"
-                android:textColor="@android:color/white" />
-
-            <Button
                 android:id="@+id/twitter"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
